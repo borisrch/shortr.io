@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Shorter - Home</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./css/all.min.css" integrity="">
+    <link rel="stylesheet" href="./css/styles.css">
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/validate.js/0.12.0/validate.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.1/animate.css">
+</head>
+
+<body>
+    <section class="hero is-dark is-shadowless is-medium">
+        <div class="hero-head">
+            <div class="container">
+                <nav class="navbar inverttooltips navbartooltips is-dark">
+                    <div class="navbar-menu">
+                        <div class="navbar-start">
+                            <a href="" class="navbar-item">Home</a>
+                            <a href="" class="navbar-item">About</a>
+                            <a href="" class="navbar-item is-hidden-tablet-only">Help</a>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        </div>
+
+        <div class="hero-body">
+            <div class="container has-text-centered">
+                <h1 class="title toggleadd is-1 is-cursor-pointer is-size-1-touch">
+                    <span class="logo">Shortr</span>.io
+                </h1>
+                <form action="http://localhost:8080/v1/shorten" method="post" id="url-form" class="field has-addons">
+                    <p class="control is-expanded is-dark is-large">
+                        <input type="text" name="nameid" id="text-field" value="" placeholder="Paste URL"
+                            class="input has-text-left is-large" autocomplete="off" required="required">
+                    </p>
+                    <p class="control">
+                        <button type="button" name="" value="" class="button is-primary is-large" id="submit-button">
+                            <i class="far fa-compress-alt"></i>
+                        </button>
+                    </p>
+                </form>
+                <div class="notifications">
+                    <div class="notification is-warning hidden" id="notification-invalid-url">
+                        <button class="delete" id="close-invalid-url"></button>
+                        <span>
+                            <span class="icon is-centered-text is-huge is-marginless">
+                                <i class="far fa-exclamation-circle"></i>
+                            </span>
+                            Please enter a valid URL.
+                        </span>
+                    </div>
+                    <div class="notification is-info hidden" id="notification-server-error">
+                        <button class="delete" id="close-server-error"></button>
+                        <span>
+                            <span class="icon is-centered-text is-huge is-marginless">
+                                <i class="fas fa-server"></i>
+                            </span>
+                            An error occurred processing your request.
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="hero-foot background is-primary is-primary-gradient">
+            <div class="container has-text-centered">
+                <div class="columns is-centered">
+                    <div class="column is-3">
+                        <span class="is-huge is-text">
+                            <span class="icon is-centered-text is-huge is-marginless">
+                                <i class="far fa-3x fa-link"></i>
+                            </span>
+                        </span>
+
+                        <h3 class="title">Shorten</h3>
+                        <h4 class="subtitle is-6">Shorten your URL so it’s ready to be shared everywhere.</h4>
+                    </div>
+                    <div class="column is-3">
+                        <span class="is-huge is-text">
+                            <span class="icon is-centered-text is-huge is-marginless">
+                                <i class="far fa-3x fa-chart-line"></i>
+
+                            </span>
+                        </span>
+                        <h3 class="title">Track</h3>
+                        <h4 class="subtitle is-6">Analytics help you know where your clicks are coming from.</h4>
+                    </div>
+                    <div class="column is-3">
+                        <span class="is-huge is-text">
+                            <span class="icon is-centered-text is-huge is-marginless">
+                                <i class="far fa-3x fa-database"></i>
+                            </span>
+                        </span>
+                        <h3 class="title">Redis</h3>
+                        <h4 class="subtitle is-6">In-memory caching allows for high performance.</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <footer class="footer">
+            <div class="content has-text-centered">
+                <p>
+                    <strong>Shortr.io</strong> by <a href="https://jgthms.com">Boris Chan</a>. The source code is licensed
+                    <a href="http://opensource.org/licenses/mit-license.php">MIT</a>. The website content is licensed <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY NC SA 4.0</a>.
+                </p>
+            </div>
+    </footer>
+
+    <div class="modal" id="modal-success">
+        <div class="modal-background"></div>
+        <div class="modal-content">
+            <article class="message is-info">
+                <div class="message-header">
+                  <p>Success</p>
+                  <button class="delete" aria-label="delete" id="modal-close-1"></button>
+                </div>
+                <div class="message-body">
+                    <div class="has-text-centered pad-5">
+                        <span class="is-huge is-text">
+                            <span class="icon is-centered-text is-huge is-marginless">
+                                    <i class="far fa-3x fa-check-circle is-success"></i>
+                            </span>
+                        </span>
+                        <p class="pad-5">Your URL has been shortened to this link:</p>
+                    </div>
+                    <div class="control">
+                        <div class="field">
+                            <p class="control has-icons-left has-icons-right">
+                                <input class="input" type="text" value="http://shorter.io/r/ab" id="modal-link">
+                                <span class="icon is-small is-right">
+                                    <i class="fal fa-copy"></i>
+                                </span>
+                            </p>
+                        </div>
+                    </div>                    
+                </div>
+              </article>
+        </div>
+        <button class="modal-close is-large" aria-label="close" id="modal-close-2"></button>
+      </div>
+
+<script>
+
+    const button = document.getElementById('submit-button');
+    const input = document.getElementById('text-field');
+    const invalidUrlNotification = document.getElementById('notification-invalid-url');
+    const serverErrorNotification = document.getElementById('notification-server-error');
+    const successModal = document.getElementById('modal-success');
+    const modalLink = document.getElementById('modal-link');
+
+    const showInvalidUrlNotification = () => {
+        button.disabled = false;
+        button.classList.remove('is-loading');
+
+        invalidUrlNotification.classList.remove('hidden');
+        invalidUrlNotification.classList.add('animated', 'flipInX', 'faster');
+        document.getElementById('close-invalid-url').addEventListener('click', () => {
+            invalidUrlNotification.classList.remove('animated', 'flipInX', 'faster');
+            invalidUrlNotification.classList.add('hidden');
+        });
+    };
+
+    const showServerErrorNotification = () => {
+        button.disabled = false;
+        button.classList.remove('is-loading');
+
+        serverErrorNotification.classList.remove('hidden');
+        serverErrorNotification.classList.add('animated', 'flipInX', 'faster');
+        document.getElementById('close-server-error').addEventListener('click', () => {
+            serverErrorNotification.classList.remove('animated', 'flipInX', 'faster');
+            serverErrorNotification.classList.add('hidden');
+        });
+    };
+
+    const closeSuccessModal = () => {
+        button.disabled = false;
+        button.classList.remove('is-loading');
+
+        successModal.classList.remove('is-active');
+    };
+
+    const showSuccessModal = (uid) => {
+        const url = "http://localhost:8080/r/" + uid;
+        modalLink.value = url;
+        successModal.classList.add('is-active');
+
+        document.getElementById('modal-close-1').addEventListener('click', (e) => {
+            closeSuccessModal();
+        });
+
+        document.getElementById('modal-close-2').addEventListener('click', (e) => {
+            closeSuccessModal();
+        });
+    };
+
+    const postData = (url, data) => {
+        return fetch(url, {
+            method: 'POST',
+            mode: 'cors',
+            cache: 'no-cache',
+            credentials: 'same-origin',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            redirect: 'follow',
+            referrer: 'no-referrer',
+            body: JSON.stringify(data),
+        })
+        .then(response => {
+            if (response.status === 500) {
+                showServerErrorNotification();
+            } else if (response.status === 400) {
+                showInvalidUrlNotification();
+            } else if (response.status === 201) {
+                const uid = response.headers.get('uid');
+                showSuccessModal(uid);
+            } else {
+                throw new Error();
+            }
+        })
+        .then(data => console.log(data))
+        .catch(error => console.log('error', error));
+    };
+
+    button.onclick = () => {
+
+        button.disabled = true;
+        button.classList.add('is-loading');
+
+        input.value = input.value.replace(/\s+/g, '');
+
+        if (!/^(f|ht)tps?:\/\//i.test(input.value)) {
+            input.value = "http://" + input.value;
+        }
+
+        const isValid = validate({ website: input.value }, { website: { url: true }});
+
+        if (!invalidUrlNotification.classList.contains('hidden')) {
+            invalidUrlNotification.classList.add('hidden');
+        }
+
+        if (typeof isValid === 'undefined') {
+            postData('http://localhost:8080/v1/shorten', {
+                url: input.value
+            });
+        } else {
+            showInvalidUrlNotification();
+        }
+    };
+
+    document.onkeypress = (e) => {
+        const key = e.keyCode;
+
+        if (key === 13) {
+            e.preventDefault();
+
+            if (button.disabled) {
+                return;
+            } else {
+                button.click();
+            }
+        }
+    }
+
+</script>
+
+</body>
+
+</html>
